@@ -10,9 +10,9 @@ export const getUnits = cache(async () => {
   if (!userProgress) {
     return [];
   }
-
+  
   const data = await db.query.units.findMany({
-    where: eq(units.courseId, userProgress.activeCourseId),
+    where: eq(units.courseId, userProgress.activeCourseId), 
     with: {
       lessons: {
         with: {
