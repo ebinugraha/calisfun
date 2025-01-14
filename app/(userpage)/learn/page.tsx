@@ -4,9 +4,12 @@ import { Header } from "./components/header";
 import { UserProgress } from "@/components/userpage/user-progress";
 import { getUserProgress } from "@/db/queries/user-progrss";
 import { redirect } from "next/navigation";
+import { getUnits } from "@/db/queries/units";
+import { Unit } from "@/components/userpage/learn/unit";
 
 const LearnPage = async () => {
   const userProgress = await getUserProgress();
+  const unitsData = await getUnits();
 
   if (!userProgress || !userProgress.activeCouse) {
     redirect("/courses");
@@ -27,6 +30,19 @@ const LearnPage = async () => {
       </StickyWrapper>
       <FeedWrapper>
         <Header title={userProgress.activeCouse.title} />
+        {unitsData.map((unit) => (
+          <div key={unit.id} className="mb-10">
+            <Unit
+              id={unit.id}
+              order={unit.order}
+              description={unit.description}
+              title={unit.title}
+              lessons={unit.lessons}
+              activeLesson={null}
+              activeLessonPercentage={0}
+            />
+          </div>
+        ))}
       </FeedWrapper>
     </div>
   );
