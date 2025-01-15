@@ -5,6 +5,7 @@ import { getCoursebyId } from "@/db/queries/courses";
 import { getUserProgress } from "@/db/queries/user-progrss";
 import { userProgress } from "@/db/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -22,8 +23,6 @@ export const setCourse = async (courseId: number) => {
     throw new Error("Course not found");
   }
 
-  
-
   // if(!course.units.length || !course.units[0].lesson.length) {
   //     throw new Error("Course not available");
   // }
@@ -31,11 +30,14 @@ export const setCourse = async (courseId: number) => {
   const existingUserProgress = await getUserProgress();
 
   if (existingUserProgress) {
-    await db.update(userProgress).set({
-      activeCourseId: courseId,
-      userName: user.username || "User",
-      userImageSrc: user.imageUrl || "/mascot.svg",
-    });
+    await db
+      .update(userProgress)
+      .set({
+        activeCourseId: courseId,
+        userName: user.username || "User",
+        userImageSrc: user.imageUrl || "/mascot.svg",
+      })
+      .where(eq(userProgress.userId, userId));
 
     revalidatePath("/courses");
     revalidatePath("/learn");
