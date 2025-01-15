@@ -63,6 +63,24 @@ const main = async () => {
         title: "Menghitung",
         order: 2,
       },
+      {
+        id: 3,
+        unitId: 1,
+        title: "Menghitung",
+        order: 3,
+      },
+      {
+        id: 4,
+        unitId: 1,
+        title: "Menghitung",
+        order: 4,
+      },
+      {
+        id: 5,
+        unitId: 1,
+        title: "Menghitung",
+        order: 5,
+      },
     ]);
 
     await db.insert(schema.challenges).values([
@@ -78,30 +96,29 @@ const main = async () => {
     await db.insert(schema.challengesOptions).values([
       {
         id: 1,
-        audioSrc: '/1.mp3',
+        audioSrc: "/1.mp3",
         challengeId: 1,
         correct: false,
-        imageSrc: '/1.svg',
-        text: '1',
+        imageSrc: "/1.svg",
+        text: "1",
       },
       {
         id: 2,
-        audioSrc: '/2.svg',
+        audioSrc: "/2.svg",
         challengeId: 1,
         correct: true,
-        imageSrc: '/2.svg',
-        text: '2',
+        imageSrc: "/2.svg",
+        text: "2",
       },
       {
         id: 3,
-        audioSrc: '/3.svg',
+        audioSrc: "/3.svg",
         challengeId: 1,
         correct: false,
-        imageSrc: '/3.svg',
-        text: '3',
+        imageSrc: "/3.svg",
+        text: "3",
       },
-
-    ])
+    ]);
 
     console.log("database seeded");
   } catch (e) {
