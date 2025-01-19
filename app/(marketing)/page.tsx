@@ -29,10 +29,12 @@ const MarketingPage = () => {
                   belajar membaca, menulis, dan berhitung.
                 </p>
               </div>
-              <Button variant={"primary"} className="w-full">
-                Ayo Bermain 
-                <Gamepad2 className="h-5 w-5" />
-              </Button>
+              <Link href={"/learn"}>
+                <Button variant={"primary"} className="w-full">
+                  Ayo Bermain 
+                  <Gamepad2 className="h-5 w-5" />
+                </Button>
+              </Link>
             </div>
           </div>
           <div className="flex items-center w-full col-span-6">

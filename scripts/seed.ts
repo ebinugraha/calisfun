@@ -86,16 +86,29 @@ const main = async () => {
     await db.insert(schema.challenges).values([
       {
         id: 1,
-        lessonId: 2,
+        lessonId: 1,
         type: "SELECT",
         order: 1,
         question: "1 + 1 = ?",
+      },
+      {
+        id: 2,
+        lessonId: 1,
+        type: "HINT",
+        order: 2,
+        question: "Hewan apakah ini ? ",
+      },
+      {
+        id: 3,
+        lessonId: 1,
+        type: "SELECT",
+        order: 3,
+        question: "2 + 3 = ? ",
       },
     ]);
 
     await db.insert(schema.challengesOptions).values([
       {
-        id: 1,
         audioSrc: "/1.mp3",
         challengeId: 1,
         correct: false,
@@ -103,7 +116,6 @@ const main = async () => {
         text: "1",
       },
       {
-        id: 2,
         audioSrc: "/2.svg",
         challengeId: 1,
         correct: true,
@@ -111,12 +123,50 @@ const main = async () => {
         text: "2",
       },
       {
-        id: 3,
         audioSrc: "/3.svg",
         challengeId: 1,
         correct: false,
         imageSrc: "/3.svg",
         text: "3",
+      },
+    ]);
+
+    await db.insert(schema.challengesOptions).values([
+      {
+        challengeId: 2,
+        correct: false,
+        text: "Singa",
+      },
+      {
+        challengeId: 2,
+        correct: true,
+        text: "Beruang",
+      },
+      {
+        challengeId: 2,
+        correct: false,
+        text: "Gajah",
+      },
+    ]);
+
+    await db.insert(schema.challengesOptions).values([
+      {
+        audioSrc: "/1.mp3",
+        challengeId: 3,
+        correct: true,
+        text: "Singa",
+      },
+      {
+        audioSrc: "/2.svg",
+        challengeId: 3,
+        correct: false,
+        text: "Harimau",
+      },
+      {
+        audioSrc: "/3.svg",
+        challengeId: 3,
+        correct: false,
+        text: "Gajah",
       },
     ]);
 

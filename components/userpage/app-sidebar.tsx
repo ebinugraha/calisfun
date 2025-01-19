@@ -38,7 +38,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 // Menu items.
 const items = [
   {
-    title: "Beranda",
+    title: "Belajar",
     url: "/learn",
     icon: "/home.svg",
   },

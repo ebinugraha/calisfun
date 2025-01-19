@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Nunito } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "react-hot-toast";
+import { ExitModal } from "@/components/modals/exit-modal";
 
 const nunitoFont = Nunito({
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({
           className={`${nunitoFont.className} antialiased`}
         >
           <Toaster/>
+          <ExitModal/>
           {children}
         </body>
       </html>

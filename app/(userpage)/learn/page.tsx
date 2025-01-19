@@ -6,12 +6,19 @@ import { getUserProgress } from "@/db/queries/user-progrss";
 import { redirect } from "next/navigation";
 import { getUnits } from "@/db/queries/units";
 import { Unit } from "@/components/userpage/learn/unit";
+import { getCourseProgress, getLessonPercentage } from "@/db/queries/courses";
 
 const LearnPage = async () => {
   const userProgress = await getUserProgress();
+  const courseProgress = await getCourseProgress();
+  const lessonPercentage = await getLessonPercentage();
   const unitsData = await getUnits();
 
   if (!userProgress || !userProgress.activeCouse) {
+    redirect("/courses");
+  }
+
+  if (!courseProgress) {
     redirect("/courses");
   }
 
@@ -36,10 +43,10 @@ const LearnPage = async () => {
               id={unit.id}
               order={unit.order}
               description={unit.description}
-              title={unit. title}
+              title={unit.title}
               lessons={unit.lessons}
-              activeLesson={undefined}
-              activeLessonPercentage={0}
+              activeLesson={courseProgress.activeLesson}
+              activeLessonPercentage={lessonPercentage}
             />
           </div>
         ))}

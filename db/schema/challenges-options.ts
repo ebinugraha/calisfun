@@ -4,8 +4,8 @@ import { relations } from "drizzle-orm";
 
 export const challengesOptions = pgTable("challenges_options", {
   id: serial("id").primaryKey(),
-  imageSrc: text("image_src").notNull(),
-  audioSrc: text("audio_src").notNull(),
+  imageSrc: text("image_src"),
+  audioSrc: text("audio_src"),
   challengeId: integer("challenge_id")
     .references(() => challenges.id, { onDelete: "cascade" })
     .notNull(),
