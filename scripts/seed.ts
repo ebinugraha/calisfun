@@ -96,7 +96,7 @@ const main = async () => {
         lessonId: 1,
         type: "HINT",
         order: 2,
-        question: "Hewan apakah ini ? ",
+        question: "Be_ua_g ? ",
       },
       {
         id: 3,
@@ -151,22 +151,19 @@ const main = async () => {
 
     await db.insert(schema.challengesOptions).values([
       {
-        audioSrc: "/1.mp3",
         challengeId: 3,
         correct: true,
-        text: "Singa",
+        text: "5",
       },
       {
-        audioSrc: "/2.svg",
         challengeId: 3,
         correct: false,
-        text: "Harimau",
+        text: "0",
       },
       {
-        audioSrc: "/3.svg",
         challengeId: 3,
         correct: false,
-        text: "Gajah",
+        text: "3",
       },
     ]);
 

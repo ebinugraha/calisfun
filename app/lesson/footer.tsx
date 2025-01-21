@@ -46,7 +46,7 @@ export const Footer = ({ onCheck, status, disable, lessonId }: Props) => {
           <Button
             variant={"default"}
             // size={isMobile ? "sm" : "lg"}
-            onClick={() => router.replace(`/lesson/${lessonId}`)}
+            onClick={() => window.location.href = `/lesson/${lessonId}`}
           >
             Ulangi lagi
           </Button>
