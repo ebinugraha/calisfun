@@ -31,11 +31,13 @@ export const Card = ({
   status,
   type,
 }: Props) => {
-  const [audio, _, controls] = useAudio({ src: audioSrc || "" });
+  const [audio, _, controls] = useAudio({ src: audioSrc || "test.mp3" });
   const handleClick = useCallback(() => {
     if (disabled) {
       return;
     }
+
+    
 
     controls.play();
 

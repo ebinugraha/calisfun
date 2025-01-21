@@ -170,6 +170,30 @@ const main = async () => {
       },
     ]);
 
+    await db.insert(schema.challenges).values([
+      {
+        id: 4,
+        lessonId: 2,
+        type: "SELECT",
+        order: 1,
+        question: "1 + 1 = ?",
+      },
+      {
+        id: 5,
+        lessonId: 2,
+        type: "HINT",
+        order: 2,
+        question: "Hewan apakah ini ? ",
+      },
+      {
+        id: 6,
+        lessonId: 2,
+        type: "SELECT",
+        order: 3,
+        question: "2 + 3 = ? ",
+      },
+    ]);
+
     console.log("database seeded");
   } catch (e) {
     console.error(e);

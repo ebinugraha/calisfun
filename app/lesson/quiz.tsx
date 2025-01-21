@@ -1,7 +1,7 @@
 "use client";
 
 import { ChallengeOptionType, ChallengeType } from "@/db/schema";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { Header } from "./header";
 import { QuestionBubble } from "./question-bubble";
 import { Challenge } from "./Challenge";
@@ -9,6 +9,11 @@ import { Footer } from "./footer";
 import { upsertChallengeProgress } from "@/actions/challenge-progress";
 import toast from "react-hot-toast";
 import { reduceHearts } from "@/actions/user-progress";
+import { useAudio, useWindowSize } from "react-use";
+import Image from "next/image";
+import { ResultCard } from "./result-card";
+import { useRouter } from "next/navigation";
+import Conffeti from "react-confetti";
 
 type QuizType = {
   initialPercentage: number;
@@ -28,6 +33,18 @@ export const Quiz = ({
   initiallessonChallenges,
   userSubscription,
 }: QuizType) => {
+  const { width, height } = useWindowSize();
+
+  const [finishAudio] = useAudio({ src: "/finish.mp3", autoPlay: true });
+  const [correctAudio, _c, correctControls] = useAudio({
+    src: "/correct.wav",
+    autoPlay: false,
+  });
+  const [inCorrectAudio, _i, inCorrectControls] = useAudio({
+    src: "/incorrect.wav",
+    autoPlay: false,
+  });
+  const [lessonId, setLessonId] = useState(initialLessonId);
   const [pending, startTransition] = useTransition();
 
   const [hearts, setHearts] = useState(initialHearts);
@@ -36,6 +53,7 @@ export const Quiz = ({
   const [status, setStatus] = useState<"correct" | "incorrect" | "none">(
     "none"
   );
+  const [shouldRenderAudio, setShouldRenderAudio] = useState(false);
 
   const [activeIndex, setActiveIndex] = useState(() => {
     const uncompletedIndex = challenges.findIndex(
@@ -44,7 +62,18 @@ export const Quiz = ({
     return uncompletedIndex === -1 ? 0 : uncompletedIndex;
   });
 
-  const onNext = () => {
+  useEffect(() => {
+    setShouldRenderAudio(true);
+  }, []);
+
+  const router = useRouter();
+
+  /*************  ✨ Codeium Command ⭐  *************/
+  /**
+   * Advances to the next challenge in the quiz by incrementing the active index.
+   */
+
+  /******  fde62a66-7db6-4a4e-bb65-69134e1385bd  *******/ const onNext = () => {
     setActiveIndex((current) => current + 1);
   };
 
@@ -76,7 +105,7 @@ export const Quiz = ({
 
     if (!correctOption) return;
 
-    if (correctOption && correctOption.id === selectedOption) {
+    if (correctOption.id === selectedOption) {
       startTransition(() => {
         upsertChallengeProgress(challenge.id)
           .then((response) => {
@@ -85,6 +114,7 @@ export const Quiz = ({
               return;
             }
 
+            correctControls.play();
             setStatus("correct");
             setPercentage((prev) => prev + 100 / challenges.length);
 
@@ -97,13 +127,14 @@ export const Quiz = ({
       });
     } else {
       startTransition(() => {
-        console.log("ini di jalankan")
+        console.log("ini di jalankan");
         reduceHearts(challenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
               console.error("Missing");
               return;
             }
+            inCorrectControls.play();
             setStatus("incorrect");
 
             if (!response?.error) {
@@ -118,10 +149,60 @@ export const Quiz = ({
   const challenge = challenges[activeIndex];
   const options = challenge?.challengeOptions ?? [];
 
+  if (!challenge) {
+    return (
+      <>
+        {finishAudio}
+        {inCorrectAudio}
+        {correctAudio}
+        <Conffeti
+          recycle={false}
+          numberOfPieces={500}
+          tweenDuration={10000}
+          width={width}
+          height={height}
+        />
+        <div className="flex flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto items-center justify-center h-full">
+          <Image
+            src="/finish.svg"
+            alt="finish"
+            className="hidden lg:block"
+            height={100}
+            width={100}
+          />
+          <Image
+            src="/finish.svg"
+            alt="finish"
+            className="block lg:hidden"
+            height={50}
+            width={50}
+          />
+          <h1 className="text-xl lg:text-3xl font-bold text-neutral-700 text-center">
+            Kerja bagus!
+            <br />
+            Kamu telah menyelesaikan tes
+          </h1>
+          <div className="flex items-center gap-x-4 w-full">
+            <ResultCard variant="points" value={challenges.length * 10} />
+            <ResultCard variant="hearts" value={hearts} />
+          </div>
+        </div>
+        <Footer
+          lessonId={lessonId}
+          status="completed"
+          onCheck={() => router.push("/learn")}
+        />
+      </>
+    );
+  }
+
   const title = challenge.type === "HINT" ? "Pilih opsi" : challenge.question;
 
   return (
     <div className="flex-1">
+      {finishAudio}
+      {inCorrectAudio}
+      {correctAudio}
       <div>
         <Header
           hearts={hearts}
@@ -151,7 +232,6 @@ export const Quiz = ({
         onCheck={onContinue}
         status={status}
         disable={pending || !selectedOption}
-        lessonId={1}
       />
     </div>
   );
