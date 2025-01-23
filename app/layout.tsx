@@ -27,7 +27,7 @@ export default function RootLayout({
         <body
           className={`${nunitoFont.className} antialiased`}
         >
-          <Toaster/>\
+          <Toaster/>
           <PracticeModal/>
           <ExitModal/>
           <HeartsModal/>

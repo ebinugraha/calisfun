@@ -7,12 +7,16 @@ import { redirect } from "next/navigation";
 import { getUnits } from "@/db/queries/units";
 import { Unit } from "@/components/userpage/learn/unit";
 import { getCourseProgress, getLessonPercentage } from "@/db/queries/courses";
+import { getUserSubscription } from "@/db/queries/user-subscription";
+import { Promo } from "@/components/userpage/promo";
+import { Quest } from "@/components/userpage/quest";
 
 const LearnPage = async () => {
   const userProgress = await getUserProgress();
   const courseProgress = await getCourseProgress();
   const lessonPercentage = await getLessonPercentage();
   const unitsData = await getUnits();
+  const userSubscription = await getUserSubscription();
 
   if (!userProgress || !userProgress.activeCouse) {
     redirect("/courses");
@@ -30,10 +34,12 @@ const LearnPage = async () => {
             title: userProgress.activeCouse.title,
             imageSrc: userProgress.activeCouse.imageSrc,
           }}
-          hearts={5}
-          points={100}
-          hasActiveSubscription={false}
+          hearts={userProgress.hearts}
+          points={userProgress.points}
+          hasActiveSubscription={!!userSubscription?.isActive}
         />
+        {!!!userSubscription?.isActive && <Promo />}
+        <Quest points={userProgress.points}/>
       </StickyWrapper>
       <FeedWrapper>
         <Header title={userProgress.activeCouse.title} />

@@ -1,33 +1,42 @@
-import { NextResponse } from "next/server";
-import { cache } from "react";
-import db from "@/db/drizzle";
-import { userProgress } from "@/db/schema";
-import { eq } from "drizzle-orm";
-import { auth } from "@clerk/nextjs/server";
+// import { redirect } from "next/navigation";
+// import { checkRole } from "@/utils/roles";
+// import { SearchUsers } from "./SearchUsers";
+// import { clerkClient } from "@clerk/nextjs/server";
+// import { removeRole, setRole } from "./_actions";
 
-export async function GET(req: Request) {
-  const { userId } = await auth();
-  try {
-    const userProgressData = await db.query.userProgress.findFirst({
-      where: eq(userProgress.userId, userId!),
-    });
-    if (!userProgressData) {
-      return NextResponse.json({
-        message: "No progress data found for the user.",
-        data: null,
-      });
-    }
+// export default async function AdminDashboard(params: {
+//   searchParams: Promise<{ search?: string }>;
+// }) {
+//   if (!checkRole("admin")) {
+//     redirect("/");
+//   }
 
-    return NextResponse.json({
-      message: "success",
-      data: userProgressData,
-    });
-  } catch (error) {
-    console.error("Error fetching user progress:", error);
+//   const query = (await params.searchParams).search;
 
-    return NextResponse.json({
-      message: "failed",
-      error: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-}
+//   const client = await clerkClient();
+
+//   //   const response = (await clerkClient()).users.getUserList({query}).data : []
+
+//   const users = (await client.users.getUserList()).data;
+
+//   return (
+//     <>
+//       <p>
+//         This is the protected admin dashboard restricted to users with the
+//         `admin` role.
+//       </p>
+
+//       <SearchUsers />
+
+//       {users.map((user) => {
+//         return (
+//           <div key={user.id}>
+//             <div>
+//               {user.firstName} {user.lastName}
+//             </div>
+//           </div>
+//         );
+//       })}
+//     </>
+//   );
+// }

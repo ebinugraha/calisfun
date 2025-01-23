@@ -16,7 +16,7 @@ const UserPageLayout = async ({ children }: { children: React.ReactNode }) => {
         <AppSidebar imageUrl={user?.imageUrl} username={user?.username} />
 
         <main className="w-full pt-[50px]">
-          <nav className="px-6 h-[65px] flex items-center border-b fixed top-0 w-full z-50 bg-white">
+          <nav className="px-6 h-[65px] flex items-center fixed top-0 w-full z-50">
             <SidebarTrigger />
           </nav>
           <div className="h-full max-w-[1056px] mx-auto pt-6">{children}</div>

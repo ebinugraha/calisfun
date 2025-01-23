@@ -19,7 +19,16 @@ export const getCourses = cache(async () => {
 export const getCoursebyId = cache(async (id: number) => {
   const data = await db.query.courses.findFirst({
     where: eq(courses.id, id),
-    // TODO: get and units lessons
+    with: {
+      units: {
+        orderBy: (units, { asc }) => [asc(units.order)],
+        with: {
+          lessons: {
+            orderBy: (lessons, { asc }) => [asc(lessons.order)],
+          },
+        },
+      },
+    },
   });
 
   return data;

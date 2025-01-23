@@ -1,6 +1,6 @@
 "use client";
 
-import { ChallengeOptionType, ChallengeType } from "@/db/schema";
+import { ChallengeOptionType, ChallengeType, userSubscriptionType } from "@/db/schema";
 import { useEffect, useState, useTransition } from "react";
 import { Header } from "./header";
 import { QuestionBubble } from "./question-bubble";
@@ -25,7 +25,9 @@ type QuizType = {
     completed: boolean;
     challengeOptions: ChallengeOptionType[];
   })[];
-  userSubscription: any;
+  userSubscription: userSubscriptionType & {
+    isActive: boolean
+  }| null;
 };
 
 export const Quiz = ({
@@ -44,7 +46,7 @@ export const Quiz = ({
 
   const { width, height } = useWindowSize();
 
-  const [finishAudio] = useAudio({ src: "/finish.mp3", autoPlay: true });
+  const [finishAudio, _f, finishAudioControls] = useAudio({ src: "/finish.mp3", autoPlay: false });
   const [correctAudio, _c, correctControls] = useAudio({
     src: "/correct.wav",
     autoPlay: false,
@@ -164,6 +166,7 @@ export const Quiz = ({
   const options = challenge?.challengeOptions ?? [];
 
   if (!challenge) {
+    finishAudioControls.play()
     return (
       <>
         {finishAudio}
