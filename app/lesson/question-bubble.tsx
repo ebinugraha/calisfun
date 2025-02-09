@@ -2,19 +2,20 @@ import Image from "next/image";
 
 type Props = {
   question: string;
+  imageSrc: string;
 };
-export const QuestionBubble = ({ question }: Props) => {
+export const QuestionBubble = ({ question, imageSrc }: Props) => {
   return (
     <div className="flex items-center gap-x-4 mb-6">
       <Image
-        src={"/bear.svg"}
+        src={imageSrc}
         alt={"question"}
         width={90}
         height={90}
         className={"block lg:hidden"}
       />
       <Image
-        src={"/bear.svg"}
+        src={imageSrc}
         alt={"question"}
         width={120}
         height={120}

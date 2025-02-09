@@ -11,78 +11,12 @@ const main = async () => {
   try {
     console.log("seeding database..");
 
-    await db.delete(schema.courses);
     await db.delete(schema.userProgress);
-    await db.delete(schema.units);
-    await db.delete(schema.lessons);
     await db.delete(schema.challenges);
     await db.delete(schema.challengesOptions);
     await db.delete(schema.challengeProgress);
     await db.delete(schema.userSubscription);
 
-    await db.insert(schema.courses).values([
-      {
-        id: 1,
-        title: "Mudah",
-        imageSrc: "/easy.svg",
-        description: "ini deskripsi mudah",
-      },
-      {
-        id: 2,
-        title: "Sedang",
-        imageSrc: "/medium.svg",
-        description: "ini deskripsi Sedang",
-      },
-      {
-        id: 3,
-        title: "Sulit",
-        imageSrc: "/hard.svg",
-        description: "ini deskripsi sulit",
-      },
-    ]);
-
-    await db.insert(schema.units).values([
-      {
-        id: 1,
-        title: "Unit 1",
-        description: "ini deskripsi unit 1",
-        courseId: 1,
-        order: 1,
-      },
-    ]);
-
-    await db.insert(schema.lessons).values([
-      {
-        id: 1,
-        unitId: 1,
-        title: "Membaca",
-        order: 1,
-      },
-      {
-        id: 2,
-        unitId: 1,
-        title: "Menghitung",
-        order: 2,
-      },
-      {
-        id: 3,
-        unitId: 1,
-        title: "Menghitung",
-        order: 3,
-      },
-      {
-        id: 4,
-        unitId: 1,
-        title: "Menghitung",
-        order: 4,
-      },
-      {
-        id: 5,
-        unitId: 1,
-        title: "Menghitung",
-        order: 5,
-      },
-    ]);
 
     await db.insert(schema.challenges).values([
       {
@@ -97,6 +31,7 @@ const main = async () => {
         lessonId: 1,
         type: "HINT",
         order: 2,
+        imageSrc: '/singa.svg',
         question: "Be_ua_g ? ",
       },
       {
@@ -181,6 +116,7 @@ const main = async () => {
         lessonId: 2,
         type: "HINT",
         order: 2,
+        imageSrc: '/bear.svg',
         question: "Hewan apakah ini ? ",
       },
       {

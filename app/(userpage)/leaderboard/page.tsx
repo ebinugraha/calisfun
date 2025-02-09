@@ -1,7 +1,6 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { FeedWrapper } from "@/components/userpage/feed-wrapper";
-import { Items } from "@/components/userpage/shop/items";
 import { StickyWrapper } from "@/components/userpage/sticky-wrapper";
 import { UserProgress } from "@/components/userpage/user-progress";
 import { getLeaderboard } from "@/db/queries/leader-board";
@@ -9,7 +8,6 @@ import { getUserProgress } from "@/db/queries/user-progrss";
 import { getUserSubscription } from "@/db/queries/user-subscription";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { userProgress } from "../../../db/schema/user-progress";
 import { Promo } from "@/components/userpage/promo";
 import { Quest } from "@/components/userpage/quest";
 const LeaderboardPage = async () => {
@@ -31,8 +29,7 @@ const LeaderboardPage = async () => {
           hasActiveSubscription={!!userSubscription?.isActive}
         />
         {!!!userSubscription?.isActive && <Promo />}
-        <Quest points={userProgress.points}/>
-
+        <Quest points={userProgress.points} />
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
@@ -53,15 +50,15 @@ const LeaderboardPage = async () => {
                 <p className="font-bold text-primary mr-4">{index + 1}</p>
                 <Avatar className="border bg-primary h-12 w-12 ml-3 mr-6">
                   <AvatarImage
-                    src={userProgress.userImageSrc}
+                    src={user.userImageSrc}
                     className="object-cover"
                   />
                 </Avatar>
                 <p className="font-bold text-neutral-800 flex-1">
-                  {userProgress.userName}
+                  {user.userName}
                 </p>
                 <p className="text-muted-foreground">
-                  {userProgress.points} Xp
+                  {user.points} Xp
                 </p>
               </div>
             );

@@ -36,17 +36,23 @@ export const Card = ({
           </div>
         )}
       </div>
-      <Image
-        src={imageSrc}
-        alt={title}
-        height={70}
-        width={70}
-        className="rounded-lg drop-shadow-md border object-cover"
-      />
-      <p className="text-neutral-800">{title}</p>
-      <p className="text-sm text-neutral-600">
-        "{description}"
-      </p>
+      <div className="flex flex-col justify-between h-full w-full mt-10 items-center">
+        <Image
+          src={imageSrc}
+          alt={title}
+          height={100}
+          width={100}
+          className="rounded-lg drop-shadow-md border object-cover mb-10"
+        />
+        <div className="flex w-full">
+          <p className="font-bold text-muted-foreground mx-auto">{title}</p>
+        </div>
+        <div className="flex h-full">
+          <p className="text-sm text-neutral-600 text-center p-2">
+            {description}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

@@ -10,6 +10,7 @@ export const challenges = pgTable("challenge", {
   id: serial("id").primaryKey(),
   type: challengesEnum("type").notNull(),
   question: text("question").notNull(),
+  imageSrc: text("image_src"),
   order: integer("order").notNull(),
   lessonId: integer("lesson_id")
     .references(() => lessons.id, {

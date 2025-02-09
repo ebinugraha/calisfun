@@ -6,6 +6,7 @@ import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { setCourse } from "@/actions/user-progress";
 import toast from "react-hot-toast";
+import { useCourseNotFoundModal } from "@/store/use-course-not-found-modal";
 
 type Props = {
   courses: CoursesType[];
@@ -15,6 +16,7 @@ type Props = {
 export const ListCourse = ({ courses, activeCourseId }: Props) => {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
+  const { open } = useCourseNotFoundModal();
 
   // NOTE: jika di klik maka akan ke halaman learn
   // jika id nya sama dengan id yang aktif maka akan pindah ke halaman learn
@@ -27,7 +29,7 @@ export const ListCourse = ({ courses, activeCourseId }: Props) => {
     }
 
     startTransition(() => {
-      setCourse(id);
+      setCourse(id).catch(() => open());
       // .catch(() => toast.error("Gagal mengatur kursus!"))
     });
   };

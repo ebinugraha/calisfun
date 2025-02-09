@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { ExitModal } from "@/components/modals/exit-modal";
 import { HeartsModal } from "@/components/modals/hearts-modal";
 import { PracticeModal } from "@/components/modals/practice-modal";
+import { CourseNotFoundModal } from "@/components/modals/course-not-found-modal";
 
 const nunitoFont = Nunito({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
           <PracticeModal/>
           <ExitModal/>
           <HeartsModal/>
+          <CourseNotFoundModal/>
           {children}
         </body>
       </html>

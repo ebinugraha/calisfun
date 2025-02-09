@@ -34,6 +34,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { SignOutButton, UserButton } from "@clerk/nextjs";
 
 // Menu items.
 const items = [
@@ -152,35 +153,10 @@ export function AppSidebar({ username, imageUrl }: UserPageSidebarProps) {
         <SidebarFooter className="">
           <SidebarMenu>
             <SidebarMenuItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton>
-                    <Image
-                      src={imageUrl ?? "/default-image.jpg"}
-                      alt="icon"
-                      width={30}
-                      height={30}
-                      className="rounded-full"
-                    />
-                    Halo, {username} 👋
-                    <ChevronUp className="ml-auto" />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  side="top"
-                  className="w-[--radix-popper-anchor-width]"
-                >
-                  <DropdownMenuItem>
-                    <span>Account</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>Billing</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>Sign out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div className="flex items-center gap-3">
+                <UserButton />
+                <h1 className="text-sm font-bold">Halo, <span className="text-primary">{username}</span></h1>
+              </div>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>

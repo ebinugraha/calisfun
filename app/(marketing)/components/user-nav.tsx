@@ -18,6 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User } from "@clerk/nextjs/server";
 import { CreditCard, LogOut, UserCircle } from "lucide-react";
 import { SignOutButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 export const UserNav = ({ userInfo }: { userInfo: User | null }) => {
   return (
@@ -49,16 +50,26 @@ export const UserNav = ({ userInfo }: { userInfo: User | null }) => {
               <UserCircle />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            Billing
-            <DropdownMenuShortcut>
-              <CreditCard />
-            </DropdownMenuShortcut>
+          <DropdownMenuItem asChild>
+            <Link href="/shop">
+              Billing
+              <DropdownMenuShortcut>
+                <CreditCard />
+              </DropdownMenuShortcut>
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
 
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Support</DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link
+            href={
+              "https://www.instagram.com/hakip_/?utm_source=ig_web_button_share_sheet"
+            }
+          >
+            Support
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <SignOutButton />
