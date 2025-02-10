@@ -3,6 +3,7 @@ import db from "@/db/drizzle";
 import { courses } from "@/db/schema";
 
 // Create API route handler
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(req: Request) {
   try {
     // Fetch courses from the database

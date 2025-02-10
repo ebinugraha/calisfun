@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
-import { start } from "repl";
 
 type Props = {
   hearts: number;

@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CheckCircle, XCircle } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useKey, useMedia } from "react-use";
+import { useKey } from "react-use";
 
 type Props = {
   onCheck: () => void;
@@ -13,8 +12,6 @@ type Props = {
 
 export const Footer = ({ onCheck, status, disable, lessonId }: Props) => {
   useKey("Enter", onCheck, {}, [onCheck]);
-  const isMobile = useMedia("(max-width: 1024px)");
-  const router = useRouter();
 
   return (
     <footer

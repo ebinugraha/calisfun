@@ -1,6 +1,4 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
 import { FeedWrapper } from "@/components/userpage/feed-wrapper";
 import { Promo } from "@/components/userpage/promo";
 import { StickyWrapper } from "@/components/userpage/sticky-wrapper";

@@ -5,7 +5,6 @@ import { Card } from "./CourseCard";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { setCourse } from "@/actions/user-progress";
-import toast from "react-hot-toast";
 import { useCourseNotFoundModal } from "@/store/use-course-not-found-modal";
 
 type Props = {

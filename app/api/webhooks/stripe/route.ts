@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       process.env.STRIPE_WEBHOOK_SECRET!
     );
   } catch (error) {
-    return new NextResponse("Webhooks error");
+    return new NextResponse("Webhooks error : "+error,);
   }
 
   const session = event.data.object as Stripe.Checkout.Session;

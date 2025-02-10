@@ -20,7 +20,6 @@ type Props = {
 };
 
 export const Card = ({
-  id,
   imageSrc,
   audioSrc,
   text,
@@ -31,6 +30,7 @@ export const Card = ({
   status,
   type,
 }: Props) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [audio, _, controls] = useAudio({ src: audioSrc || "test.mp3" });
   const handleClick = useCallback(() => {
     if (disabled) {

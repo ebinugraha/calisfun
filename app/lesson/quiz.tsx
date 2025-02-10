@@ -46,15 +46,19 @@ export const Quiz = ({
 
   const { width, height } = useWindowSize();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [finishAudio, _f, finishAudioControls] = useAudio({ src: "/finish.mp3", autoPlay: false });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [correctAudio, _c, correctControls] = useAudio({
     src: "/correct.wav",
     autoPlay: false,
   });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [inCorrectAudio, _i, inCorrectControls] = useAudio({
     src: "/incorrect.wav",
     autoPlay: false,
   });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [lessonId, setLessonId] = useState(initialLessonId);
   const [pending, startTransition] = useTransition();
 
@@ -67,7 +71,6 @@ export const Quiz = ({
   const [status, setStatus] = useState<"correct" | "incorrect" | "none">(
     "none"
   );
-  const [shouldRenderAudio, setShouldRenderAudio] = useState(false);
 
   const [activeIndex, setActiveIndex] = useState(() => {
     const uncompletedIndex = challenges.findIndex(
@@ -78,6 +81,7 @@ export const Quiz = ({
 
   useEffect(() => {
     openPracticeModal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [percentage]);
 
 

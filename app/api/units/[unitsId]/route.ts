@@ -23,7 +23,7 @@ export const GET = async (
 
     return NextResponse.json(dataUnits);
   } catch (error) {
-    return NextResponse.json({ message: "failed" }, { status: 402 });
+    return NextResponse.json({ message: "failed : "+error }, { status: 402 });
   }
 };
 
@@ -45,7 +45,7 @@ export const PUT = async (
 
     return NextResponse.json(data[0]);
   } catch (error) {
-    return NextResponse.json({ message: "Internal Error" }, { status: 402 });
+    return NextResponse.json({ message: "Internal Error : "+error }, { status: 402 });
   }
 };
 
@@ -67,6 +67,6 @@ export const DELETE = async (
 
     return NextResponse.json(data[0]);
   } catch (error) {
-    return NextResponse.json({ message: "Internal Error" }, { status: 402 });
+    return NextResponse.json({ message: "Internal Error : "+error }, { status: 402 });
   }
 };
